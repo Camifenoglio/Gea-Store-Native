@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import {useDispatch} from 'react-redux';
 import userActions from '../../redux/actions/userActions';
-// import { useNavigate } from 'react-router-dom';
-import toast  from 'react-hot-toast';
+import {View} from 'react-native'
 
 
 function GoogleSignIn() {
@@ -46,9 +45,9 @@ async function handleCallbackResponse(response) {
 
     return (
         <>  
-        <div>
-            <div id='googleButtonSignIn'></div>
-        </div>
+        <View>
+            <View id='googleButtonSignIn'></View>
+        </View>
         </>
     )
 }

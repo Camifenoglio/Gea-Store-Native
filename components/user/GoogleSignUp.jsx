@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import {useDispatch} from 'react-redux';
 import userActions from '../../redux/actions/userActions';
-import toast from 'react-hot-toast'
 import '../../styles/signinout.css'
 
 
@@ -55,9 +54,9 @@ async function handleCallbackResponse(response) {
 
     return (
         <>  
-        <div>
-            <div id='googleButton'></div>
-        </div>
+        <View>
+            <View id='googleButton'></View>
+        </View>
         </>
     )
 }

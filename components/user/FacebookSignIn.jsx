@@ -1,9 +1,10 @@
 import React from 'react';
-import '../../styles/signinout.css'
 import FacebookLogin from 'react-facebook-login';
-import toast from 'react-hot-toast'
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userActions from '../../redux/actions/userActions';
+import { View } from 'react-native';
+
 
 export default function FacebookIn() {
 
@@ -35,7 +36,7 @@ export default function FacebookIn() {
     }
     return (
         <>
-            <div className='btn-facebook'>
+            <View className='btn-facebook'>
                 <FacebookLogin
                     appId="606786154197576"
                     autoLoad={false}
@@ -45,7 +46,7 @@ export default function FacebookIn() {
                     textButton="Sign in with Facebook"
                     cssClass='facebook-login'
                 />
-            </div>
+            </View>
         </>
     )
 }
