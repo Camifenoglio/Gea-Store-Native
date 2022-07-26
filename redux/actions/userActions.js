@@ -1,5 +1,5 @@
 import axios from 'axios';
-import urlBack  from '../urlBack';
+import urlBack from '../../urlBack';
 
 const userActions = {
     signUpUsers: (userData) => {

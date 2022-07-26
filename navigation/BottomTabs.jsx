@@ -2,7 +2,8 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import ProductsStackNavigation from './Stack';
-import { Ionicons } from "@expo/vector-icons";
+import User from '../screens/User';
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -30,7 +31,7 @@ export default function BottomTabs() {
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
 
-            <Ionicons name="ios-home" size={size} color={color} /> 
+            <Ionicons name="ios-home" size={size} color={color} />
           ),
           tabPress: 'useScrollToTop'
         }}
@@ -43,9 +44,18 @@ export default function BottomTabs() {
             <MaterialIcons name="shopping-cart" size={size} color={color} />
           ),
 
-        }} 
-        />
+        }}
+      />
+      <Tab.Screen name="User" component={User}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="user-circle" size={size} color={color} />
 
+          ),
+
+        }}
+      />
     </Tab.Navigator>
 
   );
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40
   },
-  image2:{
+  image2: {
     marginTop: 10,
     height: 60,
     width: 60

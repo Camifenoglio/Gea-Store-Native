@@ -14,7 +14,7 @@ export default function ProductsStackNavigation() {
             <Stack.Screen name="products" component={Products}
                 options={{ headerShown: false }} />
             <Stack.Screen name="Product" component={Details} />
-            {/* <Stack.Screen name="Activities" component={Activities} /> */}
+            {/* <Stack.Screen name="User" component={LogIn} />  */}
             
         </Stack.Navigator>
 
