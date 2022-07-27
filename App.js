@@ -10,7 +10,10 @@ import AppLoading from 'expo-app-loading';
 import Toast from 'react-native-toast-message';
 
 export default function App() {
-  const store = createStore({ reducer: mainReducers });
+  const store = createStore({ reducer: mainReducers, middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: { warnAfter: 500 },
+    serializableCheck: { warnAfter: 500 },
+  }) });
   let [fontsLoaded] = useFonts({
     AlegreyaSans_100Thin,
     AlegreyaSans_100Thin_Italic,

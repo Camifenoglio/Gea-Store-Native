@@ -1,10 +1,14 @@
 import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { addToCart, countCart } from "../redux/actions/shoppingActions";
 
 const { height, width } = Dimensions.get("window");
 
 export default function ProductFilter({ navigation, input }) {
+    const dispatch = useDispatch();
+    const [count, setCount] = useState(1);
 
     const currentStore = useSelector(store => store.productReducers.filterPerCategory)
     const filterStore = currentStore.filter(product => product.name.toLowerCase().includes(input.trim().toLowerCase()))
@@ -30,7 +34,17 @@ export default function ProductFilter({ navigation, input }) {
                             <Text style={styles.price}>${product.price}.00</Text>
                             {/* <AntDesign name="shoppingcart" size={30} color={'grey'} /> */}
                             <View style={{ backgroundColor: '#ABBB9D', height: 42, width: 42, justifyContent: 'center', alignItems: 'center', borderRadius: 40 }}>
+                               <TouchableOpacity    onPress={(success) => {
+                               
+                                        setCount(count + 1)
+                                        dispatch(addToCart(product._id))
+                                        dispatch(countCart(count))
+
+                                    }
+                                    }>
                                 <MaterialIcons name="shopping-cart" size={30} color={'grey'} />
+
+                               </TouchableOpacity>
 
                             </View>
 
@@ -64,8 +78,8 @@ const styles = StyleSheet.create({
         width: 190,
         borderRadius: 30,
         position: 'absolute',
-        marginVertical: 10,
-        marginHorizontal: 5,
+        marginVertical: 4,
+        marginHorizontal: 7.2,
         display: 'flex',
         resizeMode: 'cover',
 
@@ -73,10 +87,7 @@ const styles = StyleSheet.create({
     containerCard: {
         marginVertical: 10,
         marginHorizontal: 5,
-        // justifyContent: 'center',
         alignItems: 'center',
-
-        // backgroundColor: '#F2F2F2',
         width: 190,
         display: 'flex',
         borderRadius: 30,
@@ -87,7 +98,7 @@ const styles = StyleSheet.create({
         width: 170,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        margin: 15,
+        margin: 16,
         borderRadius: 30,
         borderColor: '#ffcaa6',
         borderWidth: 1.3
@@ -96,7 +107,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 5,
         color: '#1B2808',
-        // height: 70,
         textAlign: 'center',
         fontFamily: 'AlegreyaSans_700Bold',
     },
@@ -105,7 +115,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         color: '#1B2808',
         marginRight: 40,
-        // marginBottom: 10,
         fontFamily: 'AlegreyaSans_400Regular',
 
     },
@@ -115,7 +124,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 120,
         marginBottom: 10
-        // marginVertical:10
     }
 
 });
