@@ -7,6 +7,7 @@ import mainReducers from './redux/reducers/mainReducers';
 import { useFonts, AlegreyaSans_100Thin, AlegreyaSans_100Thin_Italic,  AlegreyaSans_400Regular, AlegreyaSans_400Regular_Italic,
   AlegreyaSans_700Bold } from '@expo-google-fonts/alegreya-sans'
 import AppLoading from 'expo-app-loading';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const store = createStore({ reducer: mainReducers });
@@ -27,6 +28,7 @@ export default function App() {
        <NavigationContainer>
         <BottomTabs/>
         </NavigationContainer>
+        <Toast />
     </Provider>
   );
 }

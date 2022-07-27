@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userActions from '../../redux/actions/userActions'
+import Toast from 'react-native-toast-message'
 
 const { height, width } = Dimensions.get("window");
 
@@ -18,12 +19,17 @@ export default function SignIn({ navigation }) {
             from: 'form-signup',
         }
         const res = await dispatch(userActions.logInUser(logedUser))
-       console.log(res.data, "res")
+       console.log(res.data.success, "resssss")
 
         if (res.data.success) {
-            setEmail = ''
-            setPassword = ''
+            Toast.show({type: 'success', text1:res.data.message, position: 'bottom'})
         }
+        else {
+            console.log(res.data.message, 'mensaje')
+            Toast.show({type: 'error', text1:res.data.message, position: 'bottom'})
+        }
+        setEmail = ''
+        setPassword = ''
     }
 
     return (
