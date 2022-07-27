@@ -1,5 +1,6 @@
 import axios from 'axios';
 import urlBack from '../urlBack';
+import { AsyncStorage } from 'react-native';
 
 const userActions = {
     signUpUsers: (userData) => {
@@ -32,7 +33,7 @@ const userActions = {
             const user = await axios.post(urlBack + '/api/auth/signin', { logedUser })
             // console.log(user)
             if (user.data.success) {
-                localStorage.setItem('token', user.data.response.token)
+                AsyncStorage.setItem('token', user.data.response.token)
                 //tomo el token que le envie desde el back y lo envio al local storage
                 dispatch({ type: "USER", payload: user.data.response.userData });
             }
@@ -67,7 +68,7 @@ const userActions = {
                                 success: user.data.success
                             }
                         });
-                    } else { localStorage.removeItem('token') }
+                    } else { AsyncStorage.removeItem('token') }
                 }).catch(error => {
                     if (error.response.status === 401)
                         dispatch({
@@ -78,13 +79,13 @@ const userActions = {
                                 success: false
                             }
                         })
-                    localStorage.removeItem('token')
+                        AsyncStorage.removeItem('token')
                 })
         }
     },
     logOutUser: () => {
         return async (dispatch, getState) => {
-            localStorage.removeItem('token')
+            AsyncStorage.removeItem('token')
             dispatch({
                 type: 'USER',
                 payload: null

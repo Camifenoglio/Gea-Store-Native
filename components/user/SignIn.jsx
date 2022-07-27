@@ -19,7 +19,6 @@ export default function SignIn({ navigation }) {
             from: 'form-signup',
         }
         const res = await dispatch(userActions.logInUser(logedUser))
-       console.log(res.data.success, "resssss")
 
         if (res.data.success) {
             Toast.show({type: 'success', text1:res.data.message, position: 'bottom'})
