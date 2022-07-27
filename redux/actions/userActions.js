@@ -1,12 +1,12 @@
 import axios from 'axios';
-import urlBack from '../../urlBack';
+import urlBack from '../urlBack';
 
 const userActions = {
     signUpUsers: (userData) => {
         return async (dispatch, getState) => {
             try {
                 const res = await axios.post(urlBack + '/api/auth/signup', userData )
-                console.log(res)
+                // console.log(res)
                 await dispatch({
                     type: 'USER',
                     payload: res.data.response
@@ -30,7 +30,7 @@ const userActions = {
     logInUser: (logedUser) => {
         return async (dispatch, getState) => {
             const user = await axios.post(urlBack + '/api/auth/signin', { logedUser })
-            console.log(user)
+            // console.log(user)
             if (user.data.success) {
                 localStorage.setItem('token', user.data.response.token)
                 //tomo el token que le envie desde el back y lo envio al local storage

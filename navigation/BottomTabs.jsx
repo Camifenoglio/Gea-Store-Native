@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import ProductsStackNavigation from './Stack';
-import User from '../screens/User';
+import ProductsStackNavigation from './StackProducts';
+import User from './StackUser'
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';

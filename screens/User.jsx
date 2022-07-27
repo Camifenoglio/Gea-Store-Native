@@ -1,22 +1,19 @@
-import { View, StyleSheet} from 'react-native';
+import {  StyleSheet} from 'react-native';
+import SignIn from '../components/user/SignIn';
 
 
-export default function User() {
+export default function User({ navigation }) {
 
     return (
-
-        <View style={styles.container}>
-
-        </View>
-
-
+     <SignIn navigation={navigation}/>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-            alignItems: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         marginVertical: 30,
         marginHorizontal: 10,
     }
