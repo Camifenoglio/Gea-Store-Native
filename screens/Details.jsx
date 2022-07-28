@@ -1,12 +1,14 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import productsActions from '../redux/actions/productsActions';
+import { addToCart, countCart } from "../redux/actions/shoppingActions";
 
 const { height, width } = Dimensions.get("window");
 export default function Details({ route, navigation }) {
     const dispatch = useDispatch()
     const { id } = route.params
+    const [count, setCount] = useState(1);
 
     useEffect(() => {
         dispatch(productsActions.getOneProduct(id))
@@ -34,7 +36,12 @@ export default function Details({ route, navigation }) {
                     <View style={{ justifyContent: 'flex-start', width: width }}>
                         <Text style={styles.price}>Price: ${product?.price}.00</Text>
                     </View>
-                    <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}>
+                    <TouchableOpacity  onPress={(success) => {
+                             
+                               setCount(count + 1)
+                               dispatch(addToCart(product._id))
+                               dispatch(countCart(count))
+                           }} style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 20 }} >
                         <Text style={styles.button}>Add to cart </Text>
                     </TouchableOpacity>
                     <View style={{ justifyContent: 'flex-start' }}>

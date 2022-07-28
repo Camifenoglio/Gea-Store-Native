@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, TouchableOpacity} from 'react-native';
 import { useDispatch } from 'react-redux';
 import userActions from '../../redux/actions/userActions'
 import Toast from 'react-native-toast-message'
@@ -35,6 +35,7 @@ export default function SignIn({ navigation }) {
         <ImageBackground source={{ uri: 'https://i.imgur.com/NIbgh4h.jpg' }} style={styles.background}>
 
             <View style={styles.container}>
+  
             <Text style={styles.textSignIn}>Log In</Text>
 
               
@@ -49,6 +50,7 @@ export default function SignIn({ navigation }) {
                     style={styles.input}
                     onChangeText={setPassword}
                     placeholder='Password'
+                    secureTextEntry={true}
 
                 />
                 <View >
@@ -62,7 +64,6 @@ export default function SignIn({ navigation }) {
                     <Text style={styles.textAccount} >Don't have an account yet?</Text>
                     <Text style={styles.buttonSignUp}>Sign up here</Text>
                 </TouchableOpacity >
-
 
 
             </View>

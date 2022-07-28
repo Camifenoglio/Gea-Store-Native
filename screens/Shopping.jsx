@@ -3,7 +3,9 @@ import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, Touchab
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, delFromCart, clearCart } from "../redux/actions/shoppingActions";
 
+
 const { height, width } = Dimensions.get("window");
+
 
 export default function Shopping({ navigation }) {
     const dispatch = useDispatch();
@@ -15,6 +17,7 @@ export default function Shopping({ navigation }) {
     function handleDelete() {
         dispatch(clearCart());
     }
+
 
     const productsById = {}
 
@@ -36,66 +39,85 @@ export default function Shopping({ navigation }) {
             <View style={styles.container} >
                 <ImageBackground source={{ uri: 'https://i.imgur.com/NIbgh4h.jpg' }} style={styles.background}>
                     <Text style={styles.titleShop}>Shopping Cart</Text>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
-                    <Text style={styles.total} >Total:{total}</Text>
-                    <TouchableOpacity onPress={handleDelete}>
-                        <Text style={styles.buttonClear} >Clear cart</Text>
-                    </TouchableOpacity >
 
-                    </View>
+                    {user ?
+                        <>
+
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={styles.total} >Total:{total}</Text>
+                                <TouchableOpacity onPress={handleDelete}>
+                                    <Text style={styles.buttonClear} >Clear cart</Text>
+                                </TouchableOpacity >
+
+                            </View>
+                            <TouchableOpacity onPress={() => navigation.navigate('Card')}>
+                                <Text style={styles.buttonClear} >Pay</Text>
+                            </TouchableOpacity >
+
+                            <ScrollView horizontal={true}>
 
 
-                    <>
 
-                        <Animated.FlatList data={cart}
+                                <>
 
-                            keyExtractor={(item) => item._id}
-                            renderItem={({ item }) => {
-                                const product = productsById[item.productId];
-                                return (
+                                    <Animated.FlatList data={cart}
 
-                                    <>
-                                        <View style={styles.containerCard} >
+                                        keyExtractor={(item) => item._id}
+                                        renderItem={({ item }) => {
+                                            const product = productsById[item.productId];
+                                            return (
 
-                                            <Image source={{ uri: 'https://i.imgur.com/LGjleJ3.jpg' }} style={styles.cardContainer}>
-                                            </Image>
-                                            <View style={styles.boxContainer}>
-                                                <Image source={{ uri: product.image }} resizeMode="contain" style={styles.image}>
-                                                </Image>
-                                                <View >
+                                                <>
+                                                    <View style={styles.containerCard} >
 
-                                                    <Text style={styles.productName}>{product.name}</Text>
-                                                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                                                        <Text style={styles.price}>${product.price}.00</Text>
+                                                        <Image source={{ uri: 'https://i.imgur.com/LGjleJ3.jpg' }} style={styles.cardContainer}>
+                                                        </Image>
+                                                        <View style={styles.boxContainer}>
+                                                            <Image source={{ uri: product.image }} resizeMode="contain" style={styles.image}>
+                                                            </Image>
+                                                            <View >
 
+                                                                <Text style={styles.productName}>{product.name}</Text>
+                                                                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                                                                    <Text style={styles.price}>${product.price}.00</Text>
+
+                                                                </View>
+                                                                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                                    <TouchableOpacity style={{ marginTop: 10 }} onPress={() => dispatch(addToCart(product._id))}>
+                                                                        <Text style={styles.account}>+</Text>
+                                                                    </TouchableOpacity >
+                                                                    <Text style={{ marginTop: 10, justifyContent: 'center' }} > {item.quantity}</Text>
+                                                                    <TouchableOpacity style={{ marginTop: 10, alignItems: 'center' }}>
+                                                                        <Text style={styles.account} onPress={() => dispatch(delFromCart(product._id))} >-</Text>
+                                                                    </TouchableOpacity >
+                                                                </View>
+                                                                <TouchableOpacity style={{ marginTop: 10, alignItems: 'center' }} onPress={() => dispatch(delFromCart(product._id, true))}>
+                                                                    <Text style={styles.buttonRemove} >Remove Product</Text>
+                                                                </TouchableOpacity >
+                                                            </View>
+                                                        </View>
                                                     </View>
-                                                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                                        <TouchableOpacity style={{ marginTop: 10 }} onPress={() => dispatch(addToCart(product._id))}>
-                                                            <Text style={styles.account}>+</Text>
-                                                        </TouchableOpacity >
-                                                        <Text style={{ marginTop: 10, justifyContent: 'center' }} > {item.quantity}</Text>
-                                                        <TouchableOpacity style={{ marginTop: 10, alignItems: 'center' }}>
-                                                            <Text style={styles.account} onPress={() => dispatch(delFromCart(product._id))} >-</Text>
-                                                        </TouchableOpacity >
-                                                    </View>
-                                                    <TouchableOpacity style={{ marginTop: 10, alignItems: 'center' }} onPress={() => dispatch(delFromCart(product._id, true))}>
-                                                        <Text style={styles.buttonRemove} >Remove Product</Text>
-                                                    </TouchableOpacity >
-                                                </View>
-                                            </View>
-                                        </View>
-                                    </>
-                                )
-                            }}
-                        />
+                                                </>
+                                            )
+                                        }}
+                                    />
+                                </>
+                            </ScrollView>
+                        </>
 
-                    </>
-          
+                        :
+                        <>
+                            <Text style={styles.noUser}>You have to be logued to shop</Text>
+
+                        </>
+                    }
+
+
 
                 </ImageBackground>
             </View>
-        </ScrollView>
 
+        </ScrollView>
     );
 }
 
@@ -125,7 +147,7 @@ const styles = StyleSheet.create({
     containerCard: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 20
+        marginVertical: 20,
     },
     image: {
         height: 200,
@@ -192,7 +214,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#1B2808',
         textAlign: 'center',
-        marginTop: 150,
+        marginTop: 10,
         marginBottom: 10
 
     },
@@ -205,6 +227,13 @@ const styles = StyleSheet.create({
         fontSize: 22,
         paddingTop: 3,
         marginRight: 10
-    }
-
+    },
+    noUser: {
+        marginBottom: 150,
+        textAlign: 'center',
+        fontFamily: 'AlegreyaSans_400Regular',
+        fontSize: 23,
+        color: '#F2A0A0',
+        
+    },
 });

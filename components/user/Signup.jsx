@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ImageBackground, TextInput, Text, Dimensions, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userActions from '../../redux/actions/userActions'
 import Toast from 'react-native-toast-message'
@@ -42,10 +42,15 @@ export default function SignUp({ navigation }) {
         <ImageBackground source={{ uri: 'https://i.imgur.com/NIbgh4h.jpg' }} style={styles.background}>
 
             <View style={styles.container}>
+                <KeyboardAvoidingView
+          behavior='position'
+          
+    keyboardVerticalOffset='0'
+  >
+    <View style={styles.container}>
 
                 <Text style={styles.textSignIn}>Welcome Back!</Text>
                 <Text style={styles.textWelcome}>Enter your personal details and start journey with us</Text>
-
                 <TextInput
                     style={styles.input}
                     onChangeText={setName}
@@ -64,6 +69,7 @@ export default function SignUp({ navigation }) {
                     style={styles.input}
                     onChangeText={setPassword}
                     placeholder='Password'
+                    secureTextEntry={true}
 
                 />
                 <View >
@@ -74,11 +80,13 @@ export default function SignUp({ navigation }) {
                 </View>
 
                 <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={{ marginTop: 40 }} >
-                    <Text style={styles.textAccount} >Don't have an account yet?</Text>
+                    <Text style={styles.textAccount} >Do you have an account?</Text>
                     <Text style={styles.buttonSignUp}>Log In here</Text>
                 </TouchableOpacity >
 
+                </View>
 
+                  </KeyboardAvoidingView>
 
             </View>
         </ImageBackground>

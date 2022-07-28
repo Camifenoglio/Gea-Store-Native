@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import Shopping from '../screens/Shopping';
 import ProductsStackNavigation from './StackProducts';
 import User from './StackUser'
+import Shop from './StackCredit';
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -53,7 +53,7 @@ export default function BottomTabs() {
         }}
       />
 
-            <Tab.Screen name="Cart" component={Shopping}
+            <Tab.Screen name="Cart" component={Shop}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
